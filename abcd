@@ -1,0 +1,277 @@
+1 (A)
+A silica optical fiber with a core diameter large enough to be considered by ray theory analysis has a core refractive index of 1.498 and a cladding refractive index of 1.465. Determine: (a) the critical angle at the core–cladding interface (b) Numerical aperture (c) the acceptance angle in air for the fiber.
+
+clc; clear; close;
+n1 = input("Enter refractive index of core: ");
+n2 = input("Enter refractive index of cladding: ");
+
+phiC = asin(n2/n1);
+disp("The critial angle in degress is: ", phiC*180/%pi);
+NA = ((n1^2) - (n2^2))^(1/2);
+disp("The numerical aperture is: ", NA);
+
+n0 = 1 // for air
+thetaA = asin(NA/n0);
+disp("The acceptance angle in degrees is: ", thetaA*180/%pi);
+
+(B)
+Determine the normalized frequency at 850nm for step index fiber having core radius of 25 um, core refractive index 1.48 and cladding refractive index 1.46. How many modes propagate through this fiber at 1300nm and 1550nm wavelength?
+
+clc; clear; close;
+lambda1 = input("Enter the value of 1st wavelength: ");
+radius = input("Enter the radius: ");
+n1 = input("Enter refractive index of core of the fiber: ");
+n2 = input("Enter refractive index of cladding of the fiber: ");
+lambda2 = input("Enter the 2nd wavelength: ");
+lambda3 = input("Enter the 3rd wavelength: ");
+
+lambda1 = lambda1 * 10^(-9);
+radius = radius * 10^(-6);
+lambda2 = lambda2 * 10^(-9);
+lambda3 = lambda3 * 10^(-9);
+
+V = 2 * %pi * radius * (((n1^2) - (n2^2))^(1/2))/lambda1;
+disp("The normalised frequency for 1st wavelength is : ", V);
+
+modes1 = ((2 * %pi * radius * ((( n1^2 ) - ( n2^2 ))^( 1/2 ))/lambda2)^2)/2;
+
+modes2 = ((2 * %pi * radius * ((( n1^2 ) - ( n2^2 ))^( 1/2 ))/lambda3)^2)/2;
+
+disp("The number of modes for 2nd wavelength are : ", modes1);
+disp("The number of modes for 3rd wavelength are : ", modes2);
+
+
+2(A)
+The velocity of light in a core of step index fiber is 2.01e8 m/s and critical angle at core-cladding interface is 80 degree. Determine NA and acceptance angle for the fiber in air.
+
+clc; clear; close;
+V = input("Enter velocity of light in medium (core): ");
+phiC = input("Enter value of critical angle in degrees: ");
+n0 = 1 //for air
+c = 3 * (10^8); //velocity of light in free space
+n1 = c/V;
+disp("The value of refractive index of medium (core) is: ", n1);
+
+n2 = n1 * sin(phiC*%pi/180);
+disp("The value of refractive index of medium (cladding)is: ", n2);
+
+NA = ((n1^2)-(n2^2))^(1/2);
+disp("The value of Numerical Aperture is: ", NA);
+
+thetaA = asin(NA/n0);
+disp("The value of acceptance angle in degrees: ", thetaA*180/%pi);
+
+
+
+(B)
+A step index fiber with a large core diameter compared with the wavelength of the transmitted light has an acceptance angle in air of 22° and a relative refractive index difference of 3%. Estimate the numerical aperture and the critical angle at the core–cladding interface for the fiber.
+
+clc; clear; close;
+thetaA = input("Enter the value of acceptance angle in degrees: ");
+delta = input("Enter the value of relative refractive index difference: ");
+
+n0 = 1; //for air
+NA = n0 * sin(thetaA*%pi/180);
+disp("The value of Numerical Aperture is ", NA);
+
+n1 = NA/((2*delta)^(1/2));
+disp("The value of refractive index of core is ", n1);
+
+n2 = (n1^2 - NA^2)^(1/2);
+disp("The value of refractive index of cladding is ", n2);
+
+phiC = asin(n2/n1);
+disp("The value of critical angle in degrees is: ", phiC*180/%pi);
+
+
+
+3 (A)
+A multimode step index fiber has a relative refractive index difference of 1% and a core refractive index of 1.5. The number of modes propagating at a wavelength of 1.3μm is 1100. Estimate the diameter of the fiber core.
+
+clc; clear; close;
+delta = input("Enter the value of Relative refractive difference percentage: ");
+n1 = input("Enter the value of refractive index of the core of fiber: ");
+
+lambda = input("Enter the value wavelength in micrometer: ");
+modesS = input("Enter the number of modes: ");
+
+lambda = lambda * 10^(-6);
+delta = delta/100;
+n2 = ((n1^2)-(2 * delta * n1^2))^(1/2);
+disp("The value of refractive index of the cladding of fiber is: ", n2);
+
+V = (2*modesS)^(1/2);
+disp("The value of V-number is: ", V);
+
+NA = ((n1^2)-(n2^2))^(1/2);
+a = (lambda*V)/(2 * %pi * NA);
+disp("The value of diameter of core of fiber is: ", 2*a);
+
+
+(B)
+A single-mode step index fiber has a core diameter of 7 μm and a core refractive index of 1.49. Estimate the shortest wavelength of light which allows single-mode operation when the relative refractive index difference for the fiber is 1%.
+
+clc; clear; close;
+d=input("Enter core diameter: ");
+n1=input("Enter core RI: ");
+delta=input("Enter relative RI difference: ");
+Vc=input("Enter cut-off normalized frequency: ");
+delta=delta/100;
+a=d/2;
+NA=n1*(2*delta)^(1/2);
+lambda=(2*%pi*a*NA)/Vc;
+disp("shortest wavelength",lambda);
+
+
+
+4
+Write a program to plot refractive index profile for graded index fiber for alpha=1,2,3. Also determine no. of modes supported by fiber for given values of alpha, if wavelength=1300nm and core radius=15 micrometer.
+
+clc; clear; close;
+a = input("Enter the core radius in micrometer : ");
+b = input("Enter the cladding radius in micrometer : ");
+n1 = input("Enter refractive index of core : ");
+n2 = input("Enter refractive index of cladding : ");
+delta = ((n1^2)-(n2^2))/(2^(n1^2));
+c = 1;
+for alpha = [1, 2, 3, 15]
+    i = 1;
+    for r = 0:0.01:b
+        if(r < a)
+            n(c, i) = n1*((1-2*delta*(r/a)^(alpha))^(1/2));
+            i = i + 1;
+        else
+            n(c, i) = n2;
+            i = i + 1;
+        end
+    end
+    c = c + 1;
+end
+r = 0:0.01:b;
+plot(r, n(1,:), r, n(2,:), r, n(3,:), r, n(4,:));
+Axes = gca();
+Axes.data_bounds = [0 b n2-0.1 n1+0.1];
+xlabel("radial distance in micrometer");
+ylabel("refractive index");
+title("Refractive index profile");
+xgrid(0);
+legend("Alpha =1", "Alpha =2", "Alpha =3", "Alpha =15",)
+
+
+
+5
+The mean optical power launched into an optical fiber link is 1.5 mW. Plot output power vs distance for different values of attenuation coefficient (0.2dB/km, 0.5dB/km,2dB/km). Determine the maximum possible link length without repeaters (assuming lossless connectors) when the minimum mean optical power level required at the detector is 2 μW.
+clc; clear; close;
+Pi = 1.5*10^-3;
+alpha1 = 0.2;
+alpha2 = 0.5;
+alpha3 = 2;
+L = 0:0.01:10;
+
+Po1 = Pi./(10^(alpha1*L/10));
+Po2 = Pi./(10^(alpha2*L/10));
+Po3 = Pi./(10^(alpha3*L/10));
+plot(L, Po1, L, Po2, L, Po2, L, Po3);
+xlabel("Link Length in km ")
+ylabel("Output power for input power of 1.5 mW ")
+legend("alpha = 0.2 dB/km ", "alpha = 0.5 dB/km ", "alpha = 2 dB/km: ");
+
+Pm = 2*10^-6;
+L1 = (10/alpha1)*log10(Pi/Pm);
+L2 = (10/alpha2)*log10(Pi/Pm);
+L3 = (10/alpha3)*log10(Pi/Pm);
+
+disp("The maximan possible link length in km for alpha = 0.2 dB/km is: ", L1);
+disp("The maximan possible link length in km for alpha = 0.5 dB/km is: ", L2);
+disp("The maximan possible link length in km for alpha = 2 dB/km is: ", L3);
+
+
+6
+Write a program to plot ratio of output power to the input power vs frequency for different carrier recombination life time if dc power = 300 microwatt. Take carrier recombination life time of 5nsec and 2nsec. Determine 3db optical bandwidth.
+
+clc; clear; close;
+pdc = 300*10^-6; //dc power
+f = 1 * 10^6:100:250*10^6; //frequency range
+tou1 = 5 * 10^-9; //carrier life time against recombination
+pew1 = pdc./sqrt(1+(2*%pi*f*tou1).^2);
+PRatio1 = pew1./pdc;
+
+tou2 = 2 * 10^-9; //carrier life time against recombination
+pew2 = pdc./sqrt(1+(2*%pi*f*tou2).^2);
+PRatio2 = pew2./pdc;
+
+plot(log10(f), PRatio1, "-", log10(f), PRatio2, "--");
+xgrid(0);
+xlabel("log of frequency ");
+ylabel("power Ratio ");
+title("Power Ratio vs frequency ");
+legend("tou = 5ns", "tou = 2ns");
+
+
+
+7
+The minority carrier recombination lifetime for an LED is 5 ns. When a constant d.c. drive current is applied to the device the optical output power is 300μW. Determine the optical output power when the device is modulated with an rms drive current at frequencies of (a) 20 MHz; (b) 100 MHz ; (c) 200MHz Further, determine the 3 dB optical bandwidth for the device. Also evaluate all the above parameters at 2 ns
+
+clc; clear; close;
+pdc = 300*10^-6; //dc power
+f1 = 20*10^6;
+f2 = 100*10^6;
+f3 = 200*10^6;
+tou1 = 5 * 10^-9; //carrier life time against recombination
+pew1 = pdc./sqrt(1+(2*%pi*f1*tou1).^2);
+pew2 = pdc./sqrt(1+(2*%pi*f2*tou1).^2);
+pew3 = pdc./sqrt(1+(2*%pi*f3*tou1).^2);
+disp("at tou = 5ns ");
+disp("Power at 20 MHz in microwatt : ", pew1*10^6);
+disp("Power at 100 MHz in microwatt : ", pew2*10^6);
+disp("Power at 200 MHz in microwatt : ", pew3*10^6);
+BWopt1 = sqrt(3)/(2*%pi*tou1);
+disp("Optical BW in MHz at tou = 5ns : ", BWopt1*10^-6);
+
+tou2 = 2 * 10^-9; //carrier life time against recombination
+pew1 = pdc./sqrt(1+(2*%pi*f1*tou2).^2);
+pew2 = pdc./sqrt(1+(2*%pi*f2*tou2).^2);
+pew3 = pdc./sqrt(1+(2*%pi*f3*tou2).^2);
+disp("at tou = 2ns ");
+disp("Power at 20 MHz in microwatt : ", pew1*10^6);
+disp("Power at 100 MHz in microwatt : ", pew2*10^6);
+disp("Power at 200 MHz in microwatt : ", pew3*10^6);
+BWopt2 = sqrt(3)/(2*%pi*f1*tou2);
+disp("Optical BW in MHz at tou = 2ns : ", BWopt2*10^-6);
+
+
+8
+A four-port multimode fiber FBT coupler has 60μW optical power launched into port 1. The measured output powers at ports 2, 3 and 4 are 0.004, 26.0 and 27.5 μW respectively. Determine the excess loss, the insertion losses between the input and output ports, the crosstalk and the split ratio for the device.
+
+clc; clear; close;
+p1 = 60 * 10^(-6);
+p2 = 0.004 * 10^(-6);
+p3 = 26.0 * 10^(-6);
+p4 = 27.5 * 10^(-6);
+
+ExcessLoss = 10 * log10(p1/(p3 + p4));
+disp("Excess Loss in dB: ", ExcessLoss);
+
+InsertionLoss = 10 * log10(p1/ p4);
+disp("Insertion Loss in dB: ", InsertionLoss);
+
+Crosstalk = 10 * log10(p2/ p1);
+disp("Crosstalk in dB is: ", Crosstalk);
+
+CouplingRatio = (p3/(p3 + p4))* 100;
+disp("The Splitting or Coupling Ratio in terms of Percentage is: ", CouplingRatio);
+
+z = 0:0.01:10; //in nm
+lambda = 1300;
+//n = 1.45
+//k = (2 * %pi / lambda ) * n;
+k = 0.6;
+alpha = 0.02;
+p3 = p1 * (cos(z.*k)).^2.*exp(-alpha.*z);
+p4 = p1 * (sin(z.*k)).^2.*exp(-alpha.*z);
+plot(z, p3/p1, "-", z, p4/p1, "--");
+xlabel("Length in nanometer: ");
+ylabel("Power Ratio");
+legend("p3/p1", "P4/p1");
+title("Coupler relative power ratios: ");
+
